@@ -6,6 +6,7 @@ from src.data_validation import DataValidator
 from src.data_processing import DataProcessor
 from src.data_enrichment import DataEnricher
 from src.quality_checks import QualityChecker
+import os  # <- agregar para crear carpetas
 
 class PipelineOrchestrator:
     def __init__(self, config_path='config/pipeline_config.yaml'):
@@ -17,6 +18,9 @@ class PipelineOrchestrator:
             return yaml.safe_load(file)
 
     def setup_logging(self):
+        # Crear carpeta logs si no existe
+        os.makedirs("logs", exist_ok=True)
+
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',
@@ -84,12 +88,14 @@ class PipelineOrchestrator:
             'pipeline_version': self.config['version']
         }
 
+        os.makedirs("data/outputs", exist_ok=True)  # <- asegurar carpeta outputs
         with open(f'data/outputs/report_{execution_id}.json', 'w') as f:
             json.dump(report, f, indent=2)
 
     def send_alert(self, message):
         """Envía alertas (simulado)"""
         self.logger.info(f"ALERTA: {message}")
+
 if __name__ == "__main__":
     orchestrator = PipelineOrchestrator('config/pipeline_config.yaml')
     orchestrator.execute_pipeline()
