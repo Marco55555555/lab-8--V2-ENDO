@@ -1,4 +1,5 @@
 name: CD - Orchestrated Data Pipeline
+
 on:
   workflow_dispatch:
     inputs:
@@ -17,40 +18,43 @@ jobs:
   execute-pipeline:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'staging' }}
+    env:
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-    - name: Download source data
-      run: |
-        mkdir -p data/raw
-        echo "Simulando descarga de datos..." > data/raw/sales_data.csv
+      - name: Download source data
+        run: |
+          mkdir -p data/raw
+          echo "Simulando descarga de datos..." > data/raw/sales_data.csv
 
-    - name: Execute orchestrated pipeline
-      run: |
-        mkdir -p logs
-        python src/orchestrator.py
-        echo "✅ Pipeline execution completed"
+      - name: Execute orchestrated pipeline
+        run: |
+          cd ${{ github.workspace }}
+          mkdir -p logs
+          python -m src.orchestrator
+          echo "✅ Pipeline execution completed"
 
-    - name: Upload execution artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: pipeline-outputs-${{ github.run_id }}
-        path: |
-          data/outputs/
-          logs/
-        retention-days: 7
+      - name: Upload execution artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-outputs-${{ github.run_id }}
+          path: |
+            data/outputs/
+            logs/
+          retention-days: 7
 
-    - name: Generate execution report
-      if: always()
-      run: |
-        echo "Reporte generado correctamente."
+      - name: Generate execution report
+        if: always()
+        run: |
+          echo "📊 Reporte generado correctamente."
