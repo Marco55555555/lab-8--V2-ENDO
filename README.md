@@ -31,8 +31,6 @@ laboratorio-pipeline/
 │   ├── scalability_diagram.md       ← Fase 5: diagrama de escalabilidad
 │   ├── scalability_strategies.md    ← Fase 5: estrategias de escalamiento
 │   ├── reflection_questions.md      ← Fase 5: reflexiones finales
-│   └── img/
-│       └── pipeline_diagram.png     ← Imagen generada del diagrama
 │
 ├── logs/
 │   └── pipeline_execution.log       ← Logs de ejecución local y CI/CD
