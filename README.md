@@ -35,7 +35,7 @@ laboratorio-pipeline/
 │       └── pipeline_diagram.png     ← Imagen generada del diagrama
 │
 ├── logs/
-│   └── pipeline_execution.log       ← Logs de ejecución local
+│   └── pipeline_execution.log       ← Logs de ejecución local y CI/CD
 │
 ├── scripts/
 │   ├── download_sample_data.py      ← Simula descarga de datos (Fase 3/4)
@@ -58,5 +58,5 @@ laboratorio-pipeline/
 │       ├── ci_orchestration.yml     ← Fase 4: CI (tests automáticos)
 │       └── cd_orchestrated_pipeline.yml ← Fase 5: CD (ejecución en GitHub)
 │
-├── requirements.txt                 ← Dependencias del proyecto
-└── README.md                        ← Descripción general del laboratorio
+├── requirements.txt                 ← Dependencias del proyecto (PyYAML, pytest, pytest-mock)
+
