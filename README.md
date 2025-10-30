@@ -79,3 +79,9 @@ laboratorio-pipeline/
 │
 ├── requirements.txt                 ← Dependencias del proyecto
 └── README.md                        ← Este archivo
+
+---
+##  Estructura del Repositorio
+
+<img width="1456" height="376" alt="image" src="https://github.com/user-attachments/assets/e4b05953-71c2-4104-a71b-b9502b8593c8" />
+
