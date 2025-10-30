@@ -34,6 +34,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest pytest-mock  # útil si se ejecuta algún test
 
       - name: Download source data
         run: |
@@ -42,9 +43,10 @@ jobs:
 
       - name: Execute orchestrated pipeline
         run: |
+          cd ${{ github.workspace }}
           mkdir -p logs
           python -m src.orchestrator
-          echo " Pipeline execution completed"
+          echo "✅ Pipeline execution completed"
 
       - name: Upload execution artifacts
         uses: actions/upload-artifact@v4
@@ -58,4 +60,4 @@ jobs:
       - name: Generate execution report
         if: always()
         run: |
-          echo " Reporte generado correctamente."
+          echo "📊 Reporte generado correctamente."
